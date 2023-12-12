@@ -1,0 +1,46 @@
+package menu.domain;
+
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+
+public class RecommendationService {
+
+    private final MenuCategories categories;
+
+    public RecommendationService(MenuCategories menuCategories) {
+        this.categories = menuCategories;
+    }
+
+    public List<MenuCategory> recommendCategories() {
+        List<MenuCategory> recommended = new ArrayList<>();
+        EnumMap<MenuCategory, Integer> counter = createCounter();
+
+        for (int dayOfWeek = 0; dayOfWeek < 5; dayOfWeek++) {
+            recommended.add(recommendOneCategory(counter));
+        }
+
+        return recommended;
+    }
+
+    private EnumMap<MenuCategory, Integer> createCounter() {
+        EnumMap<MenuCategory, Integer> counter = new EnumMap<>(MenuCategory.class);
+
+        for (MenuCategory key : MenuCategory.values()) {
+            counter.put(key, 0);
+        }
+
+        return counter;
+    }
+
+    private MenuCategory recommendOneCategory(EnumMap<MenuCategory, Integer> counter) {
+        MenuCategory picked = categories.pickOne();
+
+        if (counter.get(picked) < 2) {
+            counter.put(picked, counter.get(picked) + 1);
+            return picked;
+        }
+
+        return recommendOneCategory(counter);
+    }
+}
