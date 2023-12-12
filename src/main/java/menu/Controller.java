@@ -3,6 +3,7 @@ package menu;
 import static menu.ExceptionHandler.handle;
 
 import menu.domain.Coach;
+import menu.domain.Coaches;
 import menu.domain.Menu;
 import java.util.List;
 
@@ -10,12 +11,12 @@ class Controller {
 
     public void run() {
         OutputView.printHeader();
-        List<Coach> coaches = createCoaches();
-        setHateMenu(coaches);
+        Coaches coaches = createCoaches();
+        // setHateMenu(coaches);
     }
 
-    private List<Coach> createCoaches() {
-        return handle(() -> ObjectMapper.mapToCoaches(InputView.readCoachName()));
+    private Coaches createCoaches() {
+        return handle(() -> new Coaches(ObjectMapper.mapToCoaches(InputView.readCoachName())));
     }
 
     private void setHateMenu(List<Coach> coaches) {
