@@ -1,8 +1,6 @@
 package menu.domain;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
+import java.util.*;
 
 public class RecommendationService {
 
@@ -46,21 +44,31 @@ public class RecommendationService {
         return recommendOneCategory(counter);
     }
 
-
     public List<RecommendResult> recommendMenus(Coaches coaches, List<MenuCategory> recommendedCategories) {
         List<RecommendResult> result = new ArrayList<>();
+        Map<String, List<Menu>> cache = createCache(coaches);
 
-        for (Coach coach : coaches.getCoaches()) {
-            List<Menu> recommendedList = new ArrayList<>();
+        for (MenuCategory recommendedCategory : recommendedCategories) {
+            for (Coach coach : coaches.getCoaches()) {
+                List<Menu> history = cache.get(coach.getName());
 
-            for (MenuCategory recommendedCategory : recommendedCategories) {
-                recommendedList.add(pickMenu(coach, recommendedCategory, recommendedList));
+                history.add(pickMenu(coach, recommendedCategory, history));
+
+                result.add(new RecommendResult(coach.getName(), history));
             }
-
-            result.add(new RecommendResult(coach.getName(), recommendedList));
         }
 
         return result;
+    }
+
+    private Map<String, List<Menu>> createCache(Coaches coaches) {
+        Map<String, List<Menu>> cache = new HashMap<>();
+
+        coaches.getCoaches().stream()
+                .map(Coach::getName)
+                .forEach(coachName -> cache.put(coachName, new ArrayList<>()));
+
+        return cache;
     }
 
     public Menu pickMenu(Coach coach, MenuCategory category, List<Menu> history) {
