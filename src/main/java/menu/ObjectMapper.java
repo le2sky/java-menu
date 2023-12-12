@@ -1,7 +1,9 @@
 package menu;
 
 import menu.domain.Coach;
+import menu.domain.Menu;
 import menu.domain.Name;
+import menu.infrastructure.AllMenusData;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +19,12 @@ class ObjectMapper {
 
         return coachNames.stream()
                 .map(Coach::new)
+                .toList();
+    }
+
+    public static List<Menu> mapToMenus(String input) {
+        return Arrays.stream(input.split(","))
+                .map(AllMenusData::get)
                 .toList();
     }
 }
