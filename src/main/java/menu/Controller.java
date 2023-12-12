@@ -12,17 +12,15 @@ class Controller {
     public void run() {
         OutputView.printHeader();
         Coaches coaches = createCoaches();
-        // setHateMenu(coaches);
+        setHateMenu(coaches);
     }
 
     private Coaches createCoaches() {
         return handle(() -> new Coaches(ObjectMapper.mapToCoaches(InputView.readCoachName())));
     }
 
-    private void setHateMenu(List<Coach> coaches) {
-        for (Coach coach : coaches) {
-            setEachHateMenu(coach);
-        }
+    private void setHateMenu(Coaches coaches) {
+        coaches.getCoaches().forEach(this::setEachHateMenu);
     }
 
     private void setEachHateMenu(Coach coach) {
