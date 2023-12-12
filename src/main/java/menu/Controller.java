@@ -14,7 +14,7 @@ class Controller {
         setHateMenu(coaches);
     }
 
-    private static List<Coach> createCoaches() {
+    private List<Coach> createCoaches() {
         return handle(() -> ObjectMapper.mapToCoaches(InputView.readCoachName()));
     }
 
@@ -24,7 +24,7 @@ class Controller {
         }
     }
 
-    private static List<Menu> createHateMenu(Coach coach) {
+    private List<Menu> createHateMenu(Coach coach) {
         return handle(() -> ObjectMapper.mapToMenus(InputView.readHateFood(coach.getName())));
     }
 }
