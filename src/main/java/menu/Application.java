@@ -18,7 +18,7 @@ public class Application {
                 MenuCategory.중식,
                 MenuCategory.아시안
         )), new Menus() {
-            
+
             @Override
             public Menu pickOne(MenuCategory recommendedCategory) {
                 List<String> menusName = AllMenusData.getBy(recommendedCategory)

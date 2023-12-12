@@ -8,18 +8,19 @@ import java.util.stream.Collectors;
 
 class OutputView {
 
+    private static final String EXCEPTION_MESSAGE_FORMAT = "[ERROR] %s%n";
     private static final String RECOMMENDED_CATEGORY_FORMAT = "[ 카테고리 | %s ]%n";
     private static final String RECOMMENDED_MENU_FORMAT = "[ %s | %s ]%n";
 
     private OutputView() {
     }
 
-    public static void printHeader() {
-        System.out.println("점심 메뉴 추천을 시작합니다.");
+    public static void printExceptionMessage(String message) {
+        System.out.format(EXCEPTION_MESSAGE_FORMAT, message);
     }
 
-    public static void printExceptionMessage(String message) {
-        System.out.println(message);
+    public static void printHeader() {
+        System.out.println("점심 메뉴 추천을 시작합니다.");
     }
 
     public static void printResultHeader() {
