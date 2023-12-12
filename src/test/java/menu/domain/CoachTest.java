@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import java.util.List;
 
 class CoachTest {
 
@@ -26,6 +27,31 @@ class CoachTest {
         String repeated = "*".repeat(source);
 
         assertThatThrownBy(() -> Name.from(repeated))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("각 코치는 최소 0개, 최대 2개의 못 먹는 메뉴가 있다.")
+    @Test
+    void checkHateMenuSize() {
+        Coach pobi = new Coach(Name.from("pobi"));
+        List<Menu> menus = List.of(
+                new Menu("1", MenuCategory.일식),
+                new Menu("2", MenuCategory.일식),
+                new Menu("3", MenuCategory.일식));
+
+        assertThatThrownBy(() -> pobi.setHateMenu(menus))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("못 먹는 메뉴는 중복이 없어야 한다.")
+    @Test
+    void checkHateMenuDuplication() {
+        Coach pobi = new Coach(Name.from("pobi"));
+        List<Menu> menus = List.of(
+                new Menu("1", MenuCategory.일식),
+                new Menu("1", MenuCategory.일식));
+
+        assertThatThrownBy(() -> pobi.setHateMenu(menus))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

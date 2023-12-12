@@ -20,11 +20,16 @@ class Controller {
 
     private void setHateMenu(List<Coach> coaches) {
         for (Coach coach : coaches) {
-            coach.setHateMenu(createHateMenu(coach));
+            setEachHateMenu(coach);
         }
     }
 
-    private List<Menu> createHateMenu(Coach coach) {
-        return handle(() -> ObjectMapper.mapToMenus(InputView.readHateFood(coach.getName())));
+    private void setEachHateMenu(Coach coach) {
+        handle(() -> {
+            List<Menu> menus = ObjectMapper.mapToMenus(InputView.readHateFood(coach.getName()));
+            coach.setHateMenu(menus);
+
+            return menus;
+        });
     }
 }
