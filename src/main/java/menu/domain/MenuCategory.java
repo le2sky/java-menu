@@ -6,5 +6,5 @@ public enum MenuCategory {
     중식,
     한식,
     아시안,
-    양식
+    양식;
 }

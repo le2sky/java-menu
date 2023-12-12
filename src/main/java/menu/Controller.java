@@ -2,17 +2,24 @@ package menu;
 
 import static menu.ExceptionHandler.handle;
 
-import menu.domain.Coach;
-import menu.domain.Coaches;
-import menu.domain.Menu;
+import menu.domain.*;
 import java.util.List;
 
 class Controller {
+
+    private final RecommendationService recommendationService;
+
+    public Controller(RecommendationService recommendationService) {
+        this.recommendationService = recommendationService;
+    }
 
     public void run() {
         OutputView.printHeader();
         Coaches coaches = createCoaches();
         setHateMenu(coaches);
+        List<MenuCategory> categories = recommendationService.recommendCategories();
+        OutputView.printResultHeader();
+        OutputView.printRecommendedCategories(categories);
     }
 
     private Coaches createCoaches() {
