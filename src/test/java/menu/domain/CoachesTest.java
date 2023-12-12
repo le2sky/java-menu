@@ -11,7 +11,7 @@ class CoachesTest {
     @DisplayName("코치는 최소 2명, 최대 5명까지 식사를 함께 한다.")
     @Test
     void checkCoachesSize() {
-        List<Coach> coaches = List.of(new Coach(Name.from("pobi")));
+        List<Coach> coaches = List.of(new Coach(new Name("pobi")));
 
         assertThatThrownBy(() -> new Coaches(coaches))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -21,8 +21,8 @@ class CoachesTest {
     @Test
     void checkCoachesDuplication() {
         List<Coach> coaches = List.of(
-                new Coach(Name.from("pobi")),
-                new Coach(Name.from("pobi")));
+                new Coach(new Name("pobi")),
+                new Coach(new Name("pobi")));
 
         assertThatThrownBy(() -> new Coaches(coaches))
                 .isInstanceOf(IllegalArgumentException.class);

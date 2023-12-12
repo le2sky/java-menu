@@ -6,16 +6,12 @@ public class Name {
 
     private final String value;
 
-    private Name(String value) {
-        this.value = value;
-    }
-
-    public static Name from(String name) {
-        if (name.length() < 2 || name.length() > 4) {
+    public Name(String value) {
+        if (value.length() < 2 || value.length() > 4) {
             throw new IllegalArgumentException("코치의 이름은 최소 2글자, 최대 4글자입니다.");
         }
 
-        return new Name(name);
+        this.value = value;
     }
 
     public String getValue() {

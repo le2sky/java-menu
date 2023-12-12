@@ -14,8 +14,8 @@ class CoachTest {
     @DisplayName("이름 생성 테스트")
     @Test
     void create() {
-        Name pobi = Name.from("pobi");
-        Name other = Name.from("pobi");
+        Name pobi = new Name("pobi");
+        Name other = new Name("pobi");
 
         assertThat(pobi).isEqualTo(other);
     }
@@ -26,14 +26,14 @@ class CoachTest {
     void checkNameLength(int source) {
         String repeated = "*".repeat(source);
 
-        assertThatThrownBy(() -> Name.from(repeated))
+        assertThatThrownBy(() -> new Name(repeated))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("각 코치는 최소 0개, 최대 2개의 못 먹는 메뉴가 있다.")
     @Test
     void checkHateMenuSize() {
-        Coach pobi = new Coach(Name.from("pobi"));
+        Coach pobi = new Coach(new Name("pobi"));
         List<Menu> menus = List.of(
                 new Menu("1", MenuCategory.일식),
                 new Menu("2", MenuCategory.일식),
@@ -46,7 +46,7 @@ class CoachTest {
     @DisplayName("못 먹는 메뉴는 중복이 없어야 한다.")
     @Test
     void checkHateMenuDuplication() {
-        Coach pobi = new Coach(Name.from("pobi"));
+        Coach pobi = new Coach(new Name("pobi"));
         List<Menu> menus = List.of(
                 new Menu("1", MenuCategory.일식),
                 new Menu("1", MenuCategory.일식));

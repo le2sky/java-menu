@@ -14,7 +14,7 @@ class ObjectMapper {
 
     public static List<Coach> mapToCoaches(String input) {
         List<Name> coachNames = Arrays.stream(input.split(","))
-                .map(Name::from)
+                .map(Name::new)
                 .toList();
 
         return coachNames.stream()
