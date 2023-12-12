@@ -1,12 +1,13 @@
 package menu.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Coach {
 
     private final Name name;
-    private List<Menu> hateMenus;
+    private List<Menu> hateMenus = new ArrayList<>();
 
     public Coach(Name name) {
         this.name = name;
@@ -20,7 +21,7 @@ public class Coach {
         checkMenusSize(menus);
         checkMenusDuplication(menus);
 
-        hateMenus = menus;
+        hateMenus.addAll(menus);
     }
 
     private void checkMenusSize(List<Menu> menus) {
@@ -40,6 +41,10 @@ public class Coach {
                 .distinct()
                 .toList()
                 .size();
+    }
+
+    public boolean isHate(Menu menu) {
+        return hateMenus.contains(menu);
     }
 
     @Override

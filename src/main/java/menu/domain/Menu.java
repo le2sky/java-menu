@@ -16,6 +16,10 @@ public class Menu {
         return name;
     }
 
+    public boolean isCategorizedBy(MenuCategory targetCategory) {
+        return category.equals(targetCategory);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

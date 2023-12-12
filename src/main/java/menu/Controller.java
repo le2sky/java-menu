@@ -20,6 +20,7 @@ class Controller {
         List<MenuCategory> categories = recommendationService.recommendCategories();
         OutputView.printResultHeader();
         OutputView.printRecommendedCategories(categories);
+        OutputView.printRecommendedMenu(recommendationService.recommendMenus(coaches, categories));
     }
 
     private Coaches createCoaches() {

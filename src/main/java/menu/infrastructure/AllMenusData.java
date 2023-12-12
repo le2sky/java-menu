@@ -34,4 +34,10 @@ public class AllMenusData {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 메뉴입니다."));
     }
+
+    public static List<Menu> getBy(MenuCategory category) {
+        return store.stream()
+                .filter(menu -> menu.isCategorizedBy(category))
+                .toList();
+    }
 }

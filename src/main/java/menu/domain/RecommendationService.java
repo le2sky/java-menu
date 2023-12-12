@@ -7,9 +7,11 @@ import java.util.List;
 public class RecommendationService {
 
     private final MenuCategories categories;
+    private final Menus menus;
 
-    public RecommendationService(MenuCategories menuCategories) {
+    public RecommendationService(MenuCategories menuCategories, Menus menus) {
         this.categories = menuCategories;
+        this.menus = menus;
     }
 
     public List<MenuCategory> recommendCategories() {
@@ -42,5 +44,32 @@ public class RecommendationService {
         }
 
         return recommendOneCategory(counter);
+    }
+
+
+    public List<RecommendResult> recommendMenus(Coaches coaches, List<MenuCategory> recommendedCategories) {
+        List<RecommendResult> result = new ArrayList<>();
+
+        for (Coach coach : coaches.getCoaches()) {
+            List<Menu> recommendedList = new ArrayList<>();
+
+            for (MenuCategory recommendedCategory : recommendedCategories) {
+                recommendedList.add(pickMenu(coach, recommendedCategory, recommendedList));
+            }
+
+            result.add(new RecommendResult(coach.getName(), recommendedList));
+        }
+
+        return result;
+    }
+
+    public Menu pickMenu(Coach coach, MenuCategory category, List<Menu> history) {
+        while (true) {
+            Menu picked = menus.pickOne(category);
+
+            if (!coach.isHate(picked) && !history.contains(picked)) {
+                return picked;
+            }
+        }
     }
 }

@@ -1,12 +1,15 @@
 package menu;
 
+import menu.domain.Menu;
 import menu.domain.MenuCategory;
+import menu.domain.RecommendResult;
 import java.util.List;
 import java.util.stream.Collectors;
 
 class OutputView {
 
     private static final String RECOMMENDED_CATEGORY_FORMAT = "[ 카테고리 | %s ]%n";
+    private static final String RECOMMENDED_MENU_FORMAT = "[ %s | %s ]%n";
 
     private OutputView() {
     }
@@ -30,5 +33,19 @@ class OutputView {
                 .collect(Collectors.joining(" | "));
 
         System.out.format(RECOMMENDED_CATEGORY_FORMAT, recommendedCategories);
+    }
+
+    public static void printRecommendedMenu(List<RecommendResult> results) {
+        for (RecommendResult result : results) {
+            System.out.format(RECOMMENDED_MENU_FORMAT, result.coachName(), buildMenuMessage(result));
+        }
+
+        System.out.println("추천을 완료했습니다.");
+    }
+
+    private static String buildMenuMessage(RecommendResult result) {
+        return result.recommendedMenus().stream()
+                .map(Menu::getName)
+                .collect(Collectors.joining(" | "));
     }
 }
