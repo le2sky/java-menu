@@ -2,7 +2,13 @@ package menu;
 
 import static menu.ExceptionHandler.handle;
 
-import menu.domain.*;
+import menu.domain.Categories;
+import menu.domain.Category;
+import menu.domain.Coach;
+import menu.domain.Coaches;
+import menu.domain.Menu;
+import menu.domain.Menus;
+import menu.domain.Recommendation;
 import java.util.List;
 
 class Controller {
