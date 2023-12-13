@@ -1,5 +1,6 @@
 package menu;
 
+import menu.infrastructure.MenusData;
 import menu.infrastructure.RandomCategoryPicker;
 
 public class Application {

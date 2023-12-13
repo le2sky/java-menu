@@ -2,7 +2,7 @@ package menu.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import menu.MenusData;
+import menu.infrastructure.MenusData;
 import menu.infrastructure.SimpleCategoryPicker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,10 +1,13 @@
-package menu;
+package menu.infrastructure;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import menu.domain.Category;
 import menu.domain.Menu;
 import menu.domain.Menus;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.List;
 
 public class MenusData implements Menus {
 
