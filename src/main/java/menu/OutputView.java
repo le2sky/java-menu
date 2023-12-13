@@ -1,6 +1,8 @@
 package menu;
 
 import menu.domain.Category;
+import menu.domain.Menu;
+import menu.domain.RecommendMenuResult;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,8 +13,9 @@ class OutputView {
     private static final String PRINT_RESULT_START_MESSAGE = "메뉴 추천 결과입니다.";
     private static final String PRINT_RESULT_ROW_DESCRIPTION = "[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]";
     private static final String PRINT_CATEGORY_FORMAT = "[ 카테고리 | %s ]%n";
-    private static final String CATEGORY_JOIN_DELIMITER = " | ";
+    private static final String JOIN_DELIMITER = " | ";
     private static final String PRINT_RESULT_END_MESSAGE = "추천을 완료했습니다.";
+    private static final String PRINT_RECOMMEND_MENU_FORMAT = "[ %s | %s ]%n";
 
     private OutputView() {
     }
@@ -37,10 +40,22 @@ class OutputView {
     private static String buildCategoryMessage(List<Category> categories) {
         return categories.stream()
                 .map(Enum::name)
-                .collect(Collectors.joining(CATEGORY_JOIN_DELIMITER));
+                .collect(Collectors.joining(JOIN_DELIMITER));
     }
 
-    public static void printRecommendMenusResult() {
+    public static void printRecommendMenusResult(List<RecommendMenuResult> recommendMenuResults) {
+        for (RecommendMenuResult recommendMenuResult : recommendMenuResults) {
+            System.out.format(PRINT_RECOMMEND_MENU_FORMAT,
+                    recommendMenuResult.coachName(),
+                    buildRecommendMenuMessage(recommendMenuResult));
+        }
+
         System.out.println(PRINT_RESULT_END_MESSAGE);
+    }
+
+    private static String buildRecommendMenuMessage(RecommendMenuResult recommendMenuResult) {
+        return recommendMenuResult.recommendMenu().stream()
+                .map(Menu::getName)
+                .collect(Collectors.joining(JOIN_DELIMITER));
     }
 }

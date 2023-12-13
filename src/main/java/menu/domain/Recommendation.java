@@ -1,9 +1,6 @@
 package menu.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
+import java.util.*;
 
 public class Recommendation {
 
@@ -39,5 +36,28 @@ public class Recommendation {
         }
 
         return selectedCategories;
+    }
+
+    public List<RecommendMenuResult> recommendMenu(List<Category> categories, Coaches coaches) {
+        List<RecommendMenuResult> result = new ArrayList<>();
+        Map<String, List<Menu>> cache = new HashMap<>();
+        coaches.getCoaches()
+                .forEach(coach -> cache.put(coach.getName(), new ArrayList<>()));
+
+        for (Category category : categories) {
+            coaches.getCoaches().forEach(coach -> {
+                while (true) {
+                    Menu picked = menus.pickOne(category);
+
+                    if (!coach.isHate(picked) && !cache.get(coach.getName()).contains(picked)) {
+                        cache.get(coach.getName()).add(picked);
+                        break;
+                    }
+                }
+            });
+        }
+
+        cache.forEach((name, recommendMenu) -> result.add(new RecommendMenuResult(name, recommendMenu)));
+        return result;
     }
 }

@@ -28,7 +28,7 @@ class Controller {
 
         OutputView.printResultHeader();
         OutputView.printCategory(categories);
-        OutputView.printRecommendMenusResult();
+        OutputView.printRecommendMenusResult(recommendation.recommendMenu(categories, coaches));
     }
 
     private static Coaches createCoaches() {

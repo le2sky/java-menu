@@ -1,12 +1,10 @@
 package menu;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import menu.domain.Category;
 import menu.domain.Menu;
 import menu.domain.Menus;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
+import java.util.*;
 
 public class MenusData implements Menus {
 
@@ -43,5 +41,16 @@ public class MenusData implements Menus {
                 .filter(menu -> menu.getName().equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(MENU_NOT_FOUND_MESSAGE));
+    }
+
+    @Override
+    public Menu pickOne(Category category) {
+        List<Menu> selectedMenu = data.get(category);
+        List<String> menuNames = selectedMenu.stream()
+                .map(Menu::getName)
+                .toList();
+        String picked = Randoms.shuffle(menuNames).get(0);
+
+        return getBy(picked);
     }
 }
