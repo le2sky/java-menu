@@ -2,29 +2,33 @@ package menu;
 
 import static menu.ExceptionHandler.handle;
 
-import menu.domain.Coach;
-import menu.domain.Coaches;
-import menu.domain.Menu;
-import menu.domain.Menus;
+import menu.domain.*;
 import java.util.List;
 
 class Controller {
 
-    private final Menus menus;
+    private final Recommendation recommendation;
 
-    public Controller(Menus menus) {
-        ObjectMapper.setData(menus);
-
-        this.menus = menus;
+    public Controller(Menus menus, Categories categories) {
+        this.recommendation = new Recommendation(categories, menus);
     }
 
     public void run() {
         OutputView.printStartMessage();
         Coaches coaches = createCoaches();
-
         for (Coach coach : coaches.getCoaches()) {
             setHateMenus(coach);
         }
+
+        recommendMenu(coaches);
+    }
+
+    private void recommendMenu(Coaches coaches) {
+        List<Category> categories = recommendation.recommendCategory();
+
+        OutputView.printResultHeader();
+        OutputView.printCategory(categories);
+        OutputView.printRecommendMenusResult();
     }
 
     private static Coaches createCoaches() {
