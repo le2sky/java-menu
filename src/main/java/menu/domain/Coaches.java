@@ -24,15 +24,23 @@ public class Coaches {
     }
 
     private static void checkCoachesSize(List<Coach> coaches) {
-        if (coaches.size() < MIN_COACHES_SIZE || coaches.size() > MAX_COACHES_SIZE) {
+        if (isInvalidCoachesSize(coaches)) {
             throw new IllegalArgumentException(INVALID_COACHES_SIZE_MESSAGE);
         }
     }
 
+    private static boolean isInvalidCoachesSize(List<Coach> coaches) {
+        return coaches.size() < MIN_COACHES_SIZE || coaches.size() > MAX_COACHES_SIZE;
+    }
+
     private static void checkCoachesDuplication(List<Coach> coaches) {
-        if (calculateUniqueSize(coaches) != coaches.size()) {
+        if (hasDuplication(coaches)) {
             throw new IllegalArgumentException(DUPLICATED_COACHES_MESSAGE);
         }
+    }
+
+    private static boolean hasDuplication(List<Coach> coaches) {
+        return calculateUniqueSize(coaches) != coaches.size();
     }
 
     private static int calculateUniqueSize(List<Coach> coaches) {
