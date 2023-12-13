@@ -1,5 +1,7 @@
 package menu.domain;
 
+import java.util.Objects;
+
 public class Coach {
 
     private static final int MIN_NAME_LENGTH_RANGE = 2;
@@ -23,5 +25,18 @@ public class Coach {
 
     private static boolean isInvalidNameLength(String name) {
         return name.length() < MIN_NAME_LENGTH_RANGE || name.length() > MAX_NAME_LENGTH_RANGE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coach coach = (Coach) o;
+        return Objects.equals(name, coach.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
