@@ -41,4 +41,8 @@ public class Coaches {
                 .toList()
                 .size();
     }
+
+    public List<Coach> getCoaches() {
+        return coaches;
+    }
 }
